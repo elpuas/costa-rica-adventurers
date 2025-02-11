@@ -4,8 +4,15 @@
   "description": "Child Theme for Costa Rica Adventurers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+        "build": "wp-scripts build",
+        "format": "wp-scripts format",
+        "lint:css": "wp-scripts lint-style",
+        "lint:js": "wp-scripts lint-js",
+        "start": "wp-scripts start"
+    },
   "author": "ElPuas Digital Crafts",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^30.10.0"
+  }
 }

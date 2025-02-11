@@ -1,0 +1,44 @@
+# Node dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Compiled assets
+*.map
+*.log
+*.gz
+*.zip
+*.tar
+*.rar
+
+# Build artifacts
+dist/
+build/
+assets/*.min.*
+assets/*.js
+assets/*.css
+assets/*.json
+
+# WordPress-specific files
+wp-config.php
+wp-config-sample.php
+debug.log
+.env
+.env.local
+.env.*.local
+
+# Editor files
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
