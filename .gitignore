@@ -42,3 +42,10 @@ debug.log
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Composer
+/vendor/
+composer.phar
+composer.lock
+.phpcs.cache
+.php-cs-fixer.cache

@@ -4,15 +4,25 @@
   "description": "Child Theme for Costa Rica Adventurers",
   "main": "index.js",
   "scripts": {
-        "build": "wp-scripts build",
-        "format": "wp-scripts format",
-        "lint:css": "wp-scripts lint-style",
-        "lint:js": "wp-scripts lint-js",
-        "start": "wp-scripts start"
-    },
+    "build": "wp-scripts build",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint": "npm run lint:css && npm run lint:js",
+    "start": "wp-scripts start",
+    "fix:js": "eslint --fix ./src",
+    "fix:css": "stylelint \"**/*.{css,scss}\" --fix",
+    "fix": "npm run fix:js && npm run fix:css"
+  },
   "author": "ElPuas Digital Crafts",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/scripts": "^30.10.0"
+    "@wordpress/scripts": "^30.10.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-config-wordpress": "^17.0.0"
   }
 }
