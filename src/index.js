@@ -1,2 +1,2 @@
-import './js/index.js';
+import './js/contact-form.js';
 import './css/styles.css';
