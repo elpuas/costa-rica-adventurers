@@ -1,0 +1,6 @@
+/**
+ * Import all the CSS files for the theme
+ */
+
+/* stylelint-disable-next-line function-url-quotes */
+@import url('./contact-form.css');

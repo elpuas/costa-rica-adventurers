@@ -1,15 +1,14 @@
 <?php
-
 /**
- * Theme functions file
- *
- * @package CostaRicaAdventurers
+ * Costa Rica Adventures functions and definitions
+ * 
+ * @package costaricaadventurers
  */
 
-/** @wordpress-plugin */
 
-add_action('wp_enqueue_scripts', 'adventor_child_enqueue_styles', 100);
-function adventor_child_enqueue_styles()
-{
-	wp_enqueue_style('adventor-parent', get_theme_file_uri('/style.css'));
-}
+/**
+ * Register Scripts
+ * 
+ * @package costaricaadventurers
+ */
+require_once get_stylesheet_directory() . '/inc/scripts.php';
