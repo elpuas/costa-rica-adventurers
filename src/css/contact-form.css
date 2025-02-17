@@ -205,6 +205,7 @@
         padding: 15px !important;
         height: 45px !important;
         border-radius: 50% !important;
+        line-height: 0px !important;
       }
 
       #presupuesto_persona, #cantidad-dias {
