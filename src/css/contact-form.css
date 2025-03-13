@@ -7,8 +7,7 @@
   padding: 50px !important;
 }
 
-.dt-sc-one-column  {
-    
+.dt-sc-one-column {
   margin-top: 30px !important;
 }
 
@@ -39,14 +38,17 @@
   border: 1px solid #ccc;
   border-radius: 3px;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  transition:
+    background 0.3s,
+    color 0.3s,
+    border-color 0.3s;
 }
 .wpcf7-list-item input[type="checkbox"]:checked + .wpcf7-list-item-label {
-  background: #F29727;
+  background: #f29727;
   color: #fff;
-  border-color: #F29727;
+  border-color: #f29727;
 }
-      
+
 /* ====================================================
            Date Row & Column Layout
 ==================================================== */
@@ -65,7 +67,7 @@
   margin-bottom: 5px;
   font-weight: bold;
 }
-      
+
 /* ====================================================
            Country Buttons Responsive Adjustments
 ==================================================== */
@@ -90,7 +92,7 @@
     display: block;
   }
 }
-     
+
 /* ====================================================
            Habitaciones (Rooms) Styling
 ==================================================== */
@@ -130,20 +132,20 @@
 #add-room-btn {
   padding: 20px 20px !important;
 }
-      
+
 /* ====================================================
            Step Input Controls
 ==================================================== */
 /* Hide native spinner arrows on number inputs */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
-      
+
 .step-input p {
   margin: 0;
   padding: 0;
@@ -153,7 +155,7 @@ input[type=number] {
 .step-input br {
   display: none;
 }
-      
+
 .room-box[data-room="1"] .step-input > p {
   display: contents;
 }
@@ -172,7 +174,7 @@ input[type=number] {
   text-align: center;
   padding: 0 10px;
 }
-      
+
 /* ====================================================
            Remove Room & Add Room Buttons (Unified Style)
  ==================================================== */
@@ -180,7 +182,7 @@ input[type=number] {
   background: #c31c1c !important;
   padding: 20px 20px !important;
 }
-      
+
 /* ====================================================
            Children Age Selectors
 ==================================================== */
@@ -201,14 +203,18 @@ input[type=number] {
   border: 1px solid #ccc;
 }
 
-.decrease-adults, .increase-adults, .decrease-children, .increase-children {
+.decrease-adults,
+.increase-adults,
+.decrease-children,
+.increase-children {
   padding: 15px !important;
   height: 45px !important;
   border-radius: 50% !important;
   line-height: 0px !important;
 }
 
-#presupuesto_persona, #cantidad-dias {
+#presupuesto_persona,
+#cantidad-dias {
   text-align: end;
 }
 
@@ -222,7 +228,7 @@ input[type=number] {
   gap: 20px;
   margin-top: 30px;
 }
-      
+
 .dt-sc-one-half {
   flex: 1 1 48%;
   min-width: 200px;
@@ -234,12 +240,11 @@ input[type=number] {
   border-color: #e5e5e5;
   margin-top: 20px;
 }
-      
+
 /* ====================================================
            Mobile Adjustments
 ==================================================== */
 @media (max-width: 782px) {
-
   .room-row {
     flex-direction: column;
   }
@@ -264,10 +269,19 @@ input[type=number] {
 ==================================================== */
 section:has(.home-page-cf7) {
   .column-form {
-    padding: 50px 150px 0px 80px
+    padding: 50px 150px 0px 80px;
   }
 
   .dt-sc-custom-contact-form input {
     margin-bottom: 10px;
+  }
+}
+
+/* ====================================================
+          Section CF7 Homepage
+==================================================== */
+body:is(.home) {
+  .dt-sc-custom-contact-form {
+    padding: 24px !important;
   }
 }
