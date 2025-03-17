@@ -1,0 +1,8 @@
+#footer {
+  &.dt-footer-tpl {
+    background-image: url(../../src/images/footer_background.jpg);
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
