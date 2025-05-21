@@ -15,7 +15,7 @@ use WPCF7_ContactForm;
  */
 add_filter('wpcf7_display_message', function ($message, $status) {
 
-    if ('mail_sent' === $status && function_exists('WPCF7') && WPCF7_ContactForm::get_current()->id() == 1234) {
+    if ('mail_sent' === $status && function_exists('WPCF7') && WPCF7_ContactForm::get_current()->id() == "420a07c") {
         return '';
     }
     return $message;
