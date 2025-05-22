@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     tours = JSON.parse(raw);
   } catch (e) {
-    console.error('Invalid cart JSON:', e);
+    console.warn('Invalid cart JSON:', e);
     return;
   }
   if (!Array.isArray(tours) || tours.length === 0) return;

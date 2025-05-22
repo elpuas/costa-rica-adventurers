@@ -18,12 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Check if the form ID matches the expected value
         if (formID === expectedFormID && formID !== 0) {
           const formElement = event.target;
-          const nombreEl = formElement.querySelector('input[name="text-758"]');
-          const correoEl = formElement.querySelector('input[name="email-372"]');
+          const nombreEl = formElement.querySelector('input[name="cr-name"]');
+          const correoEl = formElement.querySelector('input[name="cr-email"]');
           const telefonoEl = formElement.querySelector(
-            'input[name="tel-tours"]'
+            'input[name="cr-phone"]'
           );
-          const idiomaEl = formElement.querySelector('select[name="text-759"]');
+          const idiomaEl = formElement.querySelector('select[name="cr-language"]');
 
           const nombre = nombreEl ? nombreEl.value : "";
           const correo = correoEl ? correoEl.value : "";
