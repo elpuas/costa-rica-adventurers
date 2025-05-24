@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const MAX_ROOMS = 10;
     const roomsContainer = document.getElementById('rooms-container');
     const addRoomBtn = document.getElementById('add-room-btn');
-  
+    if(addRoomBtn) {
     addRoomBtn.addEventListener('click', () => {
       const currentRooms = roomsContainer.querySelectorAll('.room-box').length;
       if (currentRooms < MAX_ROOMS) {
@@ -143,5 +143,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
-  });
+  }});
   
