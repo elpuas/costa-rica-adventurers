@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  
+  // ← define `params` first
+  const params   = new URLSearchParams(window.location.search);
   const days     = parseInt(params.get('duracion'), 10) || 0;
   const inEl     = document.getElementById('fecha-llegada');
   const outEl    = document.getElementById('fecha-salida');
