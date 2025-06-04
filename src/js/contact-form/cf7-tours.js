@@ -3,36 +3,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const htmlLang = document.documentElement.lang || 'es';
   const langCode = htmlLang.split('-')[0];
  
-  const translations = {
-    es: {
-      room: 'Habitación',
-      adultsLabel: 'Cantidad de Adultos',
-      childrenLabel: 'Cantidad de Niños',
-      childAgeLabel: 'Edad del Niño',
-      underOne: 'Menor de 1',
-      roomNote: '*Se considera niño hasta 12 años o menos.',
-      removeRoom: 'Eliminar habitación'
-    },
-    en: {
-      room: 'Room',
-      adultsLabel: 'Number of Adults',
-      childrenLabel: 'Number of Children',
-      childAgeLabel: 'Child Age',
-      underOne: 'Under 1',
-      roomNote: '*Considered a child up to 12 years or younger.',
-      removeRoom: 'Remove room'
-    },
-    fr: {
-      room: 'Chambre',
-      adultsLabel: "Nombre d'adultes",
-      childrenLabel: "Nombre d'enfants",
-      childAgeLabel: "Âge de l'enfant",
-      underOne: 'Moins de 1',
-      roomNote: '*Considéré comme enfant jusqu’à 12 ans ou moins.',
-      removeRoom: 'Supprimer la chambre'
-    }
-  
-  };
+  // Agrega el bloque para alemán ("de") junto con los demás idiomas:
+const translations = {
+  es: {
+    room: 'Habitación',
+    adultsLabel: 'Cantidad de Adultos',
+    childrenLabel: 'Cantidad de Niños',
+    childAgeLabel: 'Edad del Niño',
+    underOne: 'Menor de 1',
+    roomNote: '*Se considera niño hasta 12 años o menos.',
+    removeRoom: 'Eliminar habitación'
+  },
+  en: {
+    room: 'Room',
+    adultsLabel: 'Number of Adults',
+    childrenLabel: 'Number of Children',
+    childAgeLabel: 'Child Age',
+    underOne: 'Under 1',
+    roomNote: '*Considered a child up to 12 years or younger.',
+    removeRoom: 'Remove room'
+  },
+  fr: {
+    room: 'Chambre',
+    adultsLabel: "Nombre d'adultes",
+    childrenLabel: "Nombre d'enfants",
+    childAgeLabel: "Âge de l'enfant",
+    underOne: 'Moins de 1',
+    roomNote: '*Considéré comme enfant jusqu’à 12 ans ou moins.',
+    removeRoom: 'Supprimer la chambre'
+  },
+  de: {
+    room: 'Zimmer',
+    adultsLabel: 'Anzahl der Erwachsenen',
+    childrenLabel: 'Anzahl der Kinder',
+    childAgeLabel: 'Alter des Kindes',
+    underOne: 'Unter 1',
+    roomNote: '*Als Kind gilt bis zu 12 Jahren.',
+    removeRoom: 'Zimmer entfernen'
+  }
+};
+
 
   const t = translations[langCode] || translations.es;
 
