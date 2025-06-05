@@ -4,45 +4,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const langCode = htmlLang.split('-')[0];
  
   // Agrega el bloque para alemán ("de") junto con los demás idiomas:
-const translations = {
-  es: {
-    room: 'Habitación',
-    adultsLabel: 'Cantidad de Adultos',
-    childrenLabel: 'Cantidad de Niños',
-    childAgeLabel: 'Edad del Niño',
-    underOne: 'Menor de 1',
-    roomNote: '*Se considera niño hasta 12 años o menos.',
-    removeRoom: 'Eliminar habitación'
-  },
-  en: {
-    room: 'Room',
-    adultsLabel: 'Number of Adults',
-    childrenLabel: 'Number of Children',
-    childAgeLabel: 'Child Age',
-    underOne: 'Under 1',
-    roomNote: '*Considered a child up to 12 years or younger.',
-    removeRoom: 'Remove room'
-  },
-  fr: {
-    room: 'Chambre',
-    adultsLabel: "Nombre d'adultes",
-    childrenLabel: "Nombre d'enfants",
-    childAgeLabel: "Âge de l'enfant",
-    underOne: 'Moins de 1',
-    roomNote: '*Considéré comme enfant jusqu’à 12 ans ou moins.',
-    removeRoom: 'Supprimer la chambre'
-  },
-  de: {
-    room: 'Zimmer',
-    adultsLabel: 'Anzahl der Erwachsenen',
-    childrenLabel: 'Anzahl der Kinder',
-    childAgeLabel: 'Alter des Kindes',
-    underOne: 'Unter 1',
-    roomNote: '*Als Kind gilt bis zu 12 Jahren.',
-    removeRoom: 'Zimmer entfernen'
-  }
-};
-
+  const translations = {
+    es: {
+      room: 'Habitación',
+      adultsLabel: 'Cantidad de Adultos',
+      childrenLabel: 'Cantidad de Niños',
+      childAgeLabel: 'Edad del Niño',
+      underOne: 'Menor de 1',
+      roomNote: '*Se considera niño hasta 12 años o menos.',
+      removeRoom: 'Eliminar habitación'
+    },
+    en: {
+      room: 'Room',
+      adultsLabel: 'Number of Adults',
+      childrenLabel: 'Number of Children',
+      childAgeLabel: 'Child Age',
+      underOne: 'Under 1',
+      roomNote: '*Considered a child up to 12 years or younger.',
+      removeRoom: 'Remove room'
+    },
+    fr: {
+      room: 'Chambre',
+      adultsLabel: "Nombre d'adultes",
+      childrenLabel: "Nombre d'enfants",
+      childAgeLabel: "Âge de l'enfant",
+      underOne: 'Moins de 1',
+      roomNote: '*Considéré comme enfant jusqu’à 12 ans ou moins.',
+      removeRoom: 'Supprimer la chambre'
+    },
+    de: {
+      room: 'Zimmer',
+      adultsLabel: 'Anzahl der Erwachsenen',
+      childrenLabel: 'Anzahl der Kinder',
+      childAgeLabel: 'Alter des Kindes',
+      underOne: 'Unter 1',
+      roomNote: '*Als Kind gilt bis zu 12 Jahren.',
+      removeRoom: 'Zimmer entfernen'
+    }
+  };
 
   const t = translations[langCode] || translations.es;
 
@@ -106,18 +105,34 @@ const translations = {
           <h4>${t.room} ${roomNumber}</h4>
           <div class="room-row">
             <div class="room-adults">
-              <label>${t.adultsLabel}</label>
+              <label for="room${roomNumber}_adults">${t.adultsLabel}</label>
               <div class="step-input">
                 <button type="button" class="decrease-adults">–</button>
-                <input type="number" name="room${roomNumber}_adults" value="2" min="1" max="4" readonly>
+                <input
+                  type="number"
+                  id="room${roomNumber}_adults"
+                  name="room${roomNumber}_adults"
+                  value="2"
+                  min="1"
+                  max="4"
+                  readonly
+                >
                 <button type="button" class="increase-adults">+</button>
               </div>
             </div>
             <div class="room-children">
-              <label>${t.childrenLabel}</label>
+              <label for="room${roomNumber}_children">${t.childrenLabel}</label>
               <div class="step-input">
                 <button type="button" class="decrease-children">–</button>
-                <input type="number" name="room${roomNumber}_children" value="0" min="0" max="3" readonly>
+                <input
+                  type="number"
+                  id="room${roomNumber}_children"
+                  name="room${roomNumber}_children"
+                  value="0"
+                  min="0"
+                  max="3"
+                  readonly
+                >
                 <button type="button" class="increase-children">+</button>
               </div>
             </div>
@@ -139,6 +154,7 @@ const translations = {
         const adultsInput = roomBox.querySelector('input[name^="room"][name$="_adults"]');
         const childrenInput = roomBox.querySelector('input[name^="room"][name$="_children"]');
         const childrenAgesContainer = roomBox.querySelector('.children-ages-container');
+        const roomNum = roomBox.getAttribute('data-room');
 
         if (adultsInput.value.trim() === '') {
           adultsInput.value = '2';
@@ -166,11 +182,12 @@ const translations = {
 
         childrenAgesContainer.innerHTML = '';
         for (let i = 1; i <= children; i++) {
+          const selectId = `child_age_${roomNum}_${i}`;
           childrenAgesContainer.insertAdjacentHTML(
             'beforeend',
             `
-              <label>${t.childAgeLabel} ${i}</label>
-              <select name="child_age_${i}">
+              <label for="${selectId}">${t.childAgeLabel} ${i}</label>
+              <select id="${selectId}" name="child_age_${i}">
                 ${[...Array(13).keys()]
                   .map((age) => {
                     const label = age === 0 ? t.underOne : age;
