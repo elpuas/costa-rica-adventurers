@@ -5,17 +5,8 @@
  * @package costaricaadventurers
  */
 
-
-/**
- * Register Scripts
- * 
- * @package costaricaadventurers
- */
+// Register Scripts
 require_once get_stylesheet_directory() . '/inc/scripts.php';
 
-/**
- * Register Patterns
- * 
- * @package clevelandautoshow
- */
 require_once get_stylesheet_directory() . '/inc/cf7/form.php';
+require_once get_stylesheet_directory() . '/inc/cf7/form-extra-fields.php';
