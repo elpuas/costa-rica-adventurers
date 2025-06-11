@@ -10,6 +10,10 @@ namespace CostaRicaAdventurers;
 
 use WPCF7_ContactForm;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Hide the success message for a specific form
  */

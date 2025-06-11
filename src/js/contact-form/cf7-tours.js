@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-
   const htmlLang = document.documentElement.lang || 'es';
   const langCode = htmlLang.split('-')[0];
- 
-  // Agrega el bloque para alemán ("de") junto con los demás idiomas:
+
   const translations = {
     es: {
       room: 'Habitación',
@@ -52,40 +50,34 @@ document.addEventListener('DOMContentLoaded', () => {
   if (fechaIngreso && fechaSalida && cantidadDias) {
     const calculateDays = () => {
       if (fechaIngreso.value && fechaSalida.value) {
-        const ingreso = new Date(fechaIngreso.value);
-        const salida = new Date(fechaSalida.value);
-        const diffTime = salida - ingreso;
-        const diffDays = diffTime / (1000 * 60 * 60 * 24);
-        cantidadDias.value = diffDays;
+        const diff = (new Date(fechaSalida.value) - new Date(fechaIngreso.value)) / (1000 * 60 * 60 * 24);
+        cantidadDias.value = diff;
       } else {
         cantidadDias.value = '';
       }
     };
+
     const today = new Date().toISOString().split('T')[0];
     fechaIngreso.setAttribute('min', today);
 
     fechaIngreso.addEventListener('change', () => {
       if (fechaIngreso.value) {
-        const ingresoDate = new Date(fechaIngreso.value);
-        ingresoDate.setDate(ingresoDate.getDate() + 1);
-        const minSalida = ingresoDate.toISOString().split('T')[0];
-        fechaSalida.setAttribute('min', minSalida);
-        calculateDays();
+        const d = new Date(fechaIngreso.value);
+        d.setDate(d.getDate() + 1);
+        fechaSalida.setAttribute('min', d.toISOString().split('T')[0]);
       }
+      calculateDays();
     });
+
     fechaSalida.addEventListener('change', calculateDays);
   }
 
   const firstRoom = document.querySelector('#rooms-container .room-box[data-room="1"]');
   if (firstRoom) {
-    const adultsInput = firstRoom.querySelector('input[name="room1_adults"]');
-    const childrenInput = firstRoom.querySelector('input[name="room1_children"]');
-    if (adultsInput && adultsInput.value.trim() === '') {
-      adultsInput.value = '2';
-    }
-    if (childrenInput && childrenInput.value.trim() === '') {
-      childrenInput.value = '0';
-    }
+    const a = firstRoom.querySelector('input[name="room1_adults"]');
+    const c = firstRoom.querySelector('input[name="room1_children"]');
+    if (a && !a.value.trim()) a.value = '2';
+    if (c && !c.value.trim()) c.value = '0';
   }
 
   const MAX_ROOMS = 10;
@@ -94,116 +86,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (addRoomBtn && roomsContainer) {
     addRoomBtn.addEventListener('click', () => {
-      const currentRooms = roomsContainer.querySelectorAll('.room-box').length;
-      if (currentRooms < MAX_ROOMS) {
-        const roomNumber = currentRooms + 1;
-        const newRoom = document.createElement('div');
-        newRoom.classList.add('room-box');
-        newRoom.setAttribute('data-room', roomNumber);
+      const count = roomsContainer.querySelectorAll('.room-box').length;
+      if (count >= MAX_ROOMS) return;
 
-        newRoom.innerHTML = `
-          <h4>${t.room} ${roomNumber}</h4>
-          <div class="room-row">
-            <div class="room-adults">
-              <label for="room${roomNumber}_adults">${t.adultsLabel}</label>
-              <div class="step-input">
-                <button type="button" class="decrease-adults">–</button>
-                <input
-                  type="number"
-                  id="room${roomNumber}_adults"
-                  name="room${roomNumber}_adults"
-                  value="2"
-                  min="1"
-                  max="4"
-                  readonly
-                >
-                <button type="button" class="increase-adults">+</button>
-              </div>
-            </div>
-            <div class="room-children">
-              <label for="room${roomNumber}_children">${t.childrenLabel}</label>
-              <div class="step-input">
-                <button type="button" class="decrease-children">–</button>
-                <input
-                  type="number"
-                  id="room${roomNumber}_children"
-                  name="room${roomNumber}_children"
-                  value="0"
-                  min="0"
-                  max="3"
-                  readonly
-                >
-                <button type="button" class="increase-children">+</button>
-              </div>
+      const num = count + 1;
+      const div = document.createElement('div');
+      div.classList.add('room-box');
+      div.dataset.room = num;
+
+      div.innerHTML = `
+        <h4>${t.room} ${num}</h4>
+        <div class="room-row">
+          <div class="room-adults">
+            <label for="room${num}_adults">${t.adultsLabel}</label>
+            <div class="step-input">
+              <button type="button" class="decrease-adults">–</button>
+              <input type="number" id="room${num}_adults" name="room${num}_adults" value="2" min="1" max="4" readonly>
+              <button type="button" class="increase-adults">+</button>
             </div>
           </div>
-          <div class="children-ages-container" id="children-ages-room${roomNumber}"></div>
-          <div><small class="room-note">${t.roomNote}</small></div>
-          <button type="button" class="remove-room">${t.removeRoom}</button>
-        `;
-        roomsContainer.appendChild(newRoom);
-      }
+          <div class="room-children">
+            <label for="room${num}_children">${t.childrenLabel}</label>
+            <div class="step-input">
+              <button type="button" class="decrease-children">–</button>
+              <input type="number" id="room${num}_children" name="room${num}_children" value="0" min="0" max="3" readonly>
+              <button type="button" class="increase-children">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="children-ages-container" id="children-ages-room${num}"></div>
+        <div><small class="room-note">${t.roomNote}</small></div>
+        <button type="button" class="remove-room">${t.removeRoom}</button>
+      `;
+      roomsContainer.appendChild(div);
     });
 
     document.addEventListener('click', (e) => {
-      if (
-        e.target.matches('.increase-adults, .decrease-adults, .increase-children, .decrease-children')
-      ) {
-        const roomBox = e.target.closest('.room-box');
-        if (!roomBox) return;
-        const adultsInput = roomBox.querySelector('input[name^="room"][name$="_adults"]');
-        const childrenInput = roomBox.querySelector('input[name^="room"][name$="_children"]');
-        const childrenAgesContainer = roomBox.querySelector('.children-ages-container');
-        const roomNum = roomBox.getAttribute('data-room');
+      const isStepper = e.target.matches('.increase-adults, .decrease-adults, .increase-children, .decrease-children');
+      if (isStepper) {
+        const box = e.target.closest('.room-box');
+        const ai = box.querySelector('input[name^="room"][name$="_adults"]');
+        const ci = box.querySelector('input[name^="room"][name$="_children"]');
+        const ages = box.querySelector('.children-ages-container');
+        const rn = box.dataset.room;
+        let adults = parseInt(ai.value, 10) || 0;
+        let children = parseInt(ci.value, 10) || 0;
+        const total = adults + children;
 
-        if (adultsInput.value.trim() === '') {
-          adultsInput.value = '2';
-        }
-        if (childrenInput.value.trim() === '') {
-          childrenInput.value = '0';
-        }
+        if (e.target.matches('.increase-adults') && total < 4) adults++;
+        if (e.target.matches('.decrease-adults') && adults > 1) adults--;
+        if (e.target.matches('.increase-children') && total < 4) children++;
+        if (e.target.matches('.decrease-children') && children > 0) children--;
 
-        let adults = parseInt(adultsInput.value, 10);
-        let children = parseInt(childrenInput.value, 10);
-        const totalPersons = adults + children;
+        ai.value = adults;
+        ci.value = children;
 
-        if (e.target.matches('.increase-adults') && totalPersons < 4) {
-          adultsInput.value = ++adults;
-        }
-        if (e.target.matches('.decrease-adults') && adults > 1) {
-          adultsInput.value = --adults;
-        }
-        if (e.target.matches('.increase-children') && totalPersons < 4) {
-          childrenInput.value = ++children;
-        }
-        if (e.target.matches('.decrease-children') && children > 0) {
-          childrenInput.value = --children;
-        }
-
-        childrenAgesContainer.innerHTML = '';
+        ages.innerHTML = '';
         for (let i = 1; i <= children; i++) {
-          const selectId = `child_age_${roomNum}_${i}`;
-          childrenAgesContainer.insertAdjacentHTML(
-            'beforeend',
-            `
-              <label for="${selectId}">${t.childAgeLabel} ${i}</label>
-              <select id="${selectId}" name="child_age_${i}">
-                ${[...Array(13).keys()]
-                  .map((age) => {
-                    const label = age === 0 ? t.underOne : age;
-                    return `<option value="${age}">${label}</option>`;
-                  })
-                  .join('')}
-              </select>
-            `
-          );
+          const id = `child_age_${rn}_${i}`;
+          ages.insertAdjacentHTML('beforeend', `
+            <label for="${id}">${t.childAgeLabel} ${i}</label>
+            <select id="${id}" name="child_age_${rn}_${i}">
+              ${[...Array(13).keys()].map(age => `<option value="${age}">${age === 0 ? t.underOne : age}</option>`).join('')}
+            </select>
+          `);
         }
       }
 
       if (e.target.matches('.remove-room')) {
-        const roomBox = e.target.closest('.room-box');
+        const box = e.target.closest('.room-box');
         if (roomsContainer.querySelectorAll('.room-box').length > 1) {
-          roomBox.remove();
+          box.remove();
         }
       }
     });
