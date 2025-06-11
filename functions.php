@@ -5,6 +5,12 @@
  * @package costaricaadventurers
  */
 
+namespace CostaRicaAdventurers;
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 // Register Scripts
 require_once get_stylesheet_directory() . '/inc/scripts.php';
 
