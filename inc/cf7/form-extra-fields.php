@@ -1,7 +1,6 @@
 <?php
 /**
  * Include dynamically added room/adult/child-age fields in CF7 emails,
- * replacing a [room_details] placeholder in the Mail body.
  *
  * @package CostaRicaAdventurers
  */
