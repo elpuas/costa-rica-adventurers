@@ -1,7 +1,6 @@
 <?php
 /**
  * Register Scripts and Styles
- * 
  * @package costaricaadventurers
  */
 
@@ -55,6 +54,16 @@ function register_scripts() {
             'storageKey'    => 'toursCart',
             'editToursURL'  => $inquiry_page_id ? get_permalink( $inquiry_page_id ) : '',
             'isInquiryPage' => (bool) ( $inquiry_page_id && is_page( $inquiry_page_id ) ),
+        ]
+    );
+
+    // Provide a dynamic, language-aware URL for the CF7 redirect script.
+    $contact_page = get_page_by_path( 'contact-us-at' );
+    wp_localize_script(
+        'costa-rica-adventures-scripts',
+        'contactRedirectData',
+        [
+            'redirectUrl' => $contact_page ? get_permalink( $contact_page->ID ) : '',
         ]
     );
 }
