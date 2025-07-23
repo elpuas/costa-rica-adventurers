@@ -3,15 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const formElement = event.target;
     const container = formElement.closest(".wpcf7");
 
-    // Only proceed if this form has the 'js-redirect-form' class
+    // Only proceed if the form is designated for redirection.
     if (!container || !container.classList.contains("js-redirect-form")) {
-      return;
-    }
-
-    // Optional: check that event detail matches container form ID (extra safety)
-    const expectedFormID = Number(container.getAttribute("data-wpcf7-id"));
-    const formID = event.detail ? Number(event.detail.contactFormId) : 0;
-    if (formID !== expectedFormID || formID === 0) {
       return;
     }
 
@@ -22,11 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const params = new URLSearchParams({
       client_name: nombre,
-      correo: correo,
-      telefono: telefono,
-      idioma: idioma,
+      correo,
+      telefono,
+      idioma,
     });
 
-    window.location.href = "/contact/?" + params.toString();
+    // Safely redirect using the dynamic URL provided from PHP.
+    if (typeof contactRedirectData?.redirectUrl === 'string' && contactRedirectData.redirectUrl) {
+      window.location.href = contactRedirectData.redirectUrl + "?" + params.toString();
+    } else {
+      console.error("CF7 redirect failed: Redirect URL is missing.");
+    }
   });
 });
