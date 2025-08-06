@@ -1,45 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const selector = ".wpcf7";
-  const container = document.querySelector(selector);
+  // Remove console logs for production, but keep error logs for debugging
+  document.addEventListener("wpcf7mailsent", (event) => {
+    const formElement = event.target;
 
-  if (container) {
-    document.addEventListener(
-      "wpcf7mailsent",
-      (event) => {
-        // Get the closest container that holds the data attribute (e.g. <div class="wpcf7 ...">)
-        const container = event.target.closest(".wpcf7");
-        const expectedFormID = container
-          ? Number(container.getAttribute("data-wpcf7-id"))
-          : 0;
+    if (!formElement || typeof formElement.classList?.contains !== "function") {
+      console.error("❌ CF7 redirect failed: formElement is invalid.");
+      return;
+    }
 
-        // Get the form ID from the event details
-        const formID = Number(event.detail.contactFormId);
+    // Check if form contains the redirect class (inside the form)
+    if (!formElement.querySelector(".js-redirect-form")) {
+      return; // No redirect needed
+    }
 
-        // Check if the form ID matches the expected value
-        if (formID === expectedFormID && formID !== 0) {
-          const formElement = event.target;
-          const nombreEl = formElement.querySelector('input[name="cr-name"]');
-          const correoEl = formElement.querySelector('input[name="cr-email"]');
-          const telefonoEl = formElement.querySelector(
-            'input[name="cr-phone"]'
-          );
-          const idiomaEl = formElement.querySelector('select[name="cr-language"]');
+    const nombre = formElement.querySelector('input[name="cr-name"]')?.value || "";
+    const correo = formElement.querySelector('input[name="cr-email"]')?.value || "";
+    const telefono = formElement.querySelector('input[name="cr-phone"]')?.value || "";
+    const idioma = formElement.querySelector('select[name="cr-language"]')?.value || "";
 
-          const nombre = nombreEl ? nombreEl.value : "";
-          const correo = correoEl ? correoEl.value : "";
-          const telefono = telefonoEl ? telefonoEl.value : "";
-          const idioma = idiomaEl ? idiomaEl.value : "";
+    const params = new URLSearchParams({
+      client_name: nombre,
+      correo,
+      telefono,
+      idioma,
+    });
 
-          const params = new URLSearchParams();
-          params.set("client_name", nombre);
-          params.set("correo", correo);
-          params.set("telefono", telefono);
-          params.set("idioma", idioma);
-
-          window.location.href = "/contact/?" + params.toString();
-        }
-      },
-      false
-    );
-  }
+    if (typeof contactRedirectData?.redirectUrl === "string" && contactRedirectData.redirectUrl) {
+      window.location.href = contactRedirectData.redirectUrl + "?" + params.toString();
+    } else {
+      console.error("CF7 redirect failed: Redirect URL is missing.");
+    }
+  });
 });
