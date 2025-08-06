@@ -15,10 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Enqueue scripts and styles.
  */
 function register_scripts() {
-    // Enqueue Parent Theme Stylesheet
+     // Enqueue Parent Theme Stylesheet
     wp_enqueue_style(
         'adventor-parent',
-        get_template_directory_uri() . '/style.css',
+        get_theme_file_uri( '/style.css' ),
         [],
         filemtime( get_template_directory() . '/style.css' )
     );
