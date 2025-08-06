@@ -42,8 +42,8 @@ function register_scripts() {
         wp_enqueue_script(
             'costa-rica-adventures-scripts',
             get_stylesheet_directory_uri() . '/build/index.js',
-            $asset['dependencies'] ?? [],
-            $asset['version'] ?? false,
+            isset( $asset['dependencies'] ) ? $asset['dependencies'] : [],
+            isset( $asset['version'] ) ? $asset['version'] : false,
             true
         );
 
